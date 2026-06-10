@@ -1,0 +1,5 @@
+dist/
+.storyformats/
+.tools/
+
+.DS_Store

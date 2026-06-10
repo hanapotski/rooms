@@ -1,0 +1,38 @@
+name: PR Build Check
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tweego
+        run: |
+          set -euo pipefail
+          TWEEGO_VERSION="2.1.1"
+          curl -fL "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip" -o tweego.zip
+          unzip -q tweego.zip -d tweego-bin
+          echo "$PWD/tweego-bin" >> "$GITHUB_PATH"
+
+      - name: Build story (compile check)
+        run: |
+          chmod +x scripts/build.sh
+          scripts/build.sh
+
+      - name: Upload build artifact (debug aid)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-build-dist
+          path: dist
+          if-no-files-found: ignore

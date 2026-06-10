@@ -1,0 +1,319 @@
+:: StoryTitle
+The Quiet Floor
+
+:: StoryData
+{
+  "ifid": "9C70DA1C-07D2-4F9A-9168-7D77E88D6301",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Start"
+}
+
+:: StoryInit
+<<set $inventory = []>>
+<<set $clues = []>>
+<<set $bellRings = false>>
+<<set $foundNote = false>>
+<<set $sawPortrait = false>>
+<<set $sawClock = false>>
+<<set $sawCrate = false>>
+<<set $deskOpen = false>>
+<<set $elevatorUnlocked = false>>
+<<set $deskCodeInput = "">>
+
+:: UIWidgets [widget]
+<<widget "addItem">>
+<<if !$inventory.includes(_args[0])>>
+  <<run $inventory.push(_args[0])>>
+<</if>>
+<</widget>>
+
+<<widget "addClue">>
+<<if !$clues.includes(_args[0])>>
+  <<run $clues.push(_args[0])>>
+<</if>>
+<</widget>>
+
+:: StoryCaption
+[[Main Menu->Start]]
+
+''Inventory:''
+<<if $inventory.length is 0>>
+- Empty
+<<else>>
+<<for _item range $inventory>>
+- <<= _item>>
+<</for>>
+<</if>>
+
+''Clues:''
+<<if $clues.length is 0>>
+- None yet
+<<else>>
+<<for _clue range $clues>>
+- <<= _clue>>
+<</for>>
+<</if>>
+
+:: StoryStyles [stylesheet]
+.room-map {
+  border: 1px solid #3a3a3a;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  background: #121212;
+}
+
+.room-map table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.room-map td {
+  text-align: center;
+  padding: 0.45rem;
+  border: 1px dashed #2a2a2a;
+}
+
+.room-map .blank {
+  border-color: transparent;
+}
+
+:: Start
+The house has a slate board in the front hall.
+
+Choose a door:
+- [[Door 1: The Quiet Floor->Quiet Floor]]
+- [[Door 2: Locked for now->Door 2 Locked]]
+- [[Door 3: Locked for now->Door 3 Locked]]
+
+:: Door 2 Locked
+Door 2 does not move when you pull the handle.
+
+A brass tag reads: "Under construction."
+
+[[Back to door list->Start]]
+
+:: Door 3 Locked
+Door 3 is sealed with painted-over screws.
+
+Someone penciled beside it: "Come back later."
+
+[[Back to door list->Start]]
+
+:: Quiet Floor
+The bell has not rung yet, but you can feel it in the walls.
+
+You wake in a small guest room with no windows, only a brass plaque:
+
+''GUEST ROOM - QUIET FLOOR''
+
+A folded note is pinned to the door with a silver nail.
+
+<<if !$foundNote>>
+[[Read the note->Read Note]]
+<</if>>
+[[Step into the foyer->Foyer]]
+
+:: Read Note
+The paper smells faintly of smoke and rain.
+
+"If you are reading this, the house accepted you.
+Find Ada before the Bell.
+Do not trust the mirrors.
+- E"
+
+<<set $foundNote = true>>
+<<addClue "A note signed only 'E'.">>
+
+[[Go to the foyer->Foyer]]
+
+:: Foyer
+A circular foyer sits at the center of this floor.
+
+You orient yourself by direction instead of door labels.
+
+<div class="room-map">
+<table>
+  <tr>
+    <td class="blank"></td>
+    <td>[[Conservatory->Conservatory]]</td>
+    <td class="blank"></td>
+  </tr>
+  <tr>
+    <td>[[Study->Study]]</td>
+    <td><strong>Foyer</strong></td>
+    <td>[[Service Hall->Service Hall]]</td>
+  </tr>
+  <tr>
+    <td class="blank"></td>
+    <td>[[Guest Room->Quiet Floor]]</td>
+    <td class="blank"></td>
+  </tr>
+</table>
+</div>
+
+A tall portrait watches from above the stairs.
+
+[[Inspect Portrait->Portrait]]
+
+:: Portrait
+The brass plate under the portrait reads:
+
+"''SEVEN'' guests entered Aster House in 1924.
+Only one left with a name."
+
+<<if !$sawPortrait>>
+<<set $sawPortrait = true>>
+<<addClue "Portrait plate emphasizes SEVEN.">>
+<</if>>
+
+[[Back to the foyer->Foyer]]
+
+:: Study
+Dust hangs in sheets. A roll-top desk sits against the wall.
+
+<<if $deskOpen>>
+The desk stands open. A hidden compartment is empty.
+[[Back to the foyer->Foyer]]
+<<else>>
+A keypad has been added to the antique lock. Three digits.
+
+<<if $sawPortrait and $sawClock and $sawCrate>>
+You have enough fragments to test a full code.
+
+The house gave you three signs: the frozen time, the watcher above, and the freight mark.
+<</if>>
+
+Code: <<textbox "$deskCodeInput" "" autofocus>>
+
+<<button "Try code">>
+  <<if $deskCodeInput is "873">>
+    <<set $deskOpen = true>>
+    <<addItem "Brass Service Key">>
+    <<addClue "Desk letter: 'The Bell is not a clock. It is a person.'">>
+    <<goto "Desk Open">>
+  <<else>>
+    <<goto "Desk Fail">>
+  <</if>>
+<</button>>
+
+[[Back to the foyer->Foyer]]
+<</if>>
+
+:: Desk Fail
+The lock flashes red once, then goes dark.
+
+The house hums, as if amused.
+
+[[Try again->Study]]
+[[Back to the foyer->Foyer]]
+
+:: Desk Open
+The lock clicks.
+
+Inside:
+- A brass key tagged "SERVICE ELEVATOR"
+- A torn letter in Ada's handwriting
+
+"The Bell keeps the floor plans in people, not paper.
+If I disappear, follow the freight line down."
+
+[[Take everything and return to the foyer->Foyer]]
+
+:: Conservatory
+The glass ceiling is cracked but dry. Dead vines coil around iron benches.
+
+At the center, a frozen station clock still reads ''8:17''.
+
+<<if !$sawClock>>
+<<set $sawClock = true>>
+<<addClue "Conservatory clock stopped at 8:17.">>
+<</if>>
+
+You hear faint knocking from inside a sealed wall.
+
+[[Examine the sealed wall->Sealed Wall]]
+[[Back to the foyer->Foyer]]
+
+:: Sealed Wall
+You press your ear to the plaster.
+
+Three knocks. Pause. Three knocks.
+
+Not random. A signal.
+
+<<addClue "Knock pattern: 3 - pause - 3.">>
+
+[[Back to the conservatory->Conservatory]]
+
+:: Service Hall
+Pipes run along the ceiling. At the end of the hall waits a caged service elevator.
+
+A wooden freight crate sits nearby, stenciled with a faded number: ''3''.
+
+<<if !$sawCrate>>
+<<set $sawCrate = true>>
+<<addClue "Freight crate marked 3.">>
+<</if>>
+
+<<if $elevatorUnlocked>>
+The elevator gate is open.
+[[Descend to the freight level->Freight Level]]
+[[Back to the foyer->Foyer]]
+<<else>>
+<<if $inventory.includes("Brass Service Key")>>
+You fit the brass key into the elevator lock.
+
+<<button "Unlock the service elevator">>
+  <<set $elevatorUnlocked = true>>
+  <<goto "Elevator Unlock">>
+<</button>>
+<<else>>
+The elevator lock has no keypad. It needs a key.
+<</if>>
+
+[[Back to the foyer->Foyer]]
+<</if>>
+
+:: Elevator Unlock
+The gate rattles open.
+
+A fresh card has been tied to the control lever:
+
+"FREIGHT LEVEL - OCCUPANT: ADA MARROW"
+
+The ink is still wet.
+
+[[Descend->Freight Level]]
+[[Back to the foyer->Foyer]]
+
+:: Freight Level
+The elevator drops too far.
+
+When it stops, you step into a corridor of unfinished walls and numbered doors.
+The guest room mark is here too.
+
+At the far end, a woman in a bellhop coat waits under a bare light.
+She smiles like she has been expecting you.
+
+"You took your time," she says.
+"Now tell me: which name did the house give you?"
+
+''End of Chapter 1 starter.''
+
+[[Restart->Start Over]]
+
+:: Start Over
+<<set $inventory = []>>
+<<set $clues = []>>
+<<set $bellRings = false>>
+<<set $foundNote = false>>
+<<set $sawPortrait = false>>
+<<set $sawClock = false>>
+<<set $sawCrate = false>>
+<<set $deskOpen = false>>
+<<set $elevatorUnlocked = false>>
+<<set $deskCodeInput = "">>
+<<goto "Start">>
+
+[[Wake up in the Guest Room->Start]]
