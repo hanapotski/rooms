@@ -83,8 +83,8 @@ The house has a slate board in the front hall.
 
 Choose a door:
 - [[Door 1: The Quiet Floor->Quiet Floor]]
-- [[Door 2: Locked for now->Door 2 Locked]]
-- [[Door 3: Locked for now->Door 3 Locked]]
+- [[Door 2: Locked for now 🔒->Door 2 Locked]]
+- [[Door 3: Locked for now 🔒->Door 3 Locked]]
 
 :: Door 2 Locked
 Door 2 does not move when you pull the handle.
