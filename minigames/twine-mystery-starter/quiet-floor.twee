@@ -35,9 +35,9 @@ The Quiet Floor
 <</widget>>
 
 :: StoryCaption
-[[Main Menu->Start]]
+[[🏠 Main Menu->Start]]
 
-''Inventory:''
+''🎒 Inventory:''
 <<if $inventory.length is 0>>
 - Empty
 <<else>>
@@ -46,7 +46,7 @@ The Quiet Floor
 <</for>>
 <</if>>
 
-''Clues:''
+''🧩 Clues:''
 <<if $clues.length is 0>>
 - None yet
 <<else>>
@@ -82,9 +82,9 @@ The Quiet Floor
 The house has a slate board in the front hall.
 
 Choose a door:
-- [[Door 1: The Quiet Floor->Quiet Floor]]
-- [[Door 2: Locked for now 🔒->Door 2 Locked]]
-- [[Door 3: Locked for now 🔒->Door 3 Locked]]
+- [[🚪 Door 1: The Quiet Floor->Quiet Floor]]
+- [[🚪 Door 2: Locked for now 🔒->Door 2 Locked]]
+- [[🚪 Door 3: Locked for now 🔒->Door 3 Locked]]
 
 :: Door 2 Locked
 Door 2 does not move when you pull the handle.
@@ -110,9 +110,9 @@ You wake in a small guest room with no windows, only a brass plaque:
 A folded note is pinned to the door with a silver nail.
 
 <<if !$foundNote>>
-[[Read the note->Read Note]]
+[[📝 Read the note->Read Note]]
 <</if>>
-[[Step into the foyer->Foyer]]
+[[🚶 Step into the foyer->Foyer]]
 
 :: Read Note
 The paper smells faintly of smoke and rain.
@@ -125,7 +125,7 @@ Do not trust the mirrors.
 <<set $foundNote = true>>
 <<addClue "A note signed only 'E'.">>
 
-[[Go to the foyer->Foyer]]
+[[🚶 Go to the foyer->Foyer]]
 
 :: Foyer
 A circular foyer sits at the center of this floor.
@@ -136,17 +136,17 @@ You orient yourself by direction instead of door labels.
 <table>
   <tr>
     <td class="blank"></td>
-    <td>[[Conservatory->Conservatory]]</td>
+    <td>[[🌿 Conservatory->Conservatory]]</td>
     <td class="blank"></td>
   </tr>
   <tr>
-    <td>[[Study->Study]]</td>
+    <td>[[📚 Study->Study]]</td>
     <td><strong>Foyer</strong></td>
-    <td>[[Service Hall->Service Hall]]</td>
+    <td>[[🔧 Service Hall->Service Hall]]</td>
   </tr>
   <tr>
     <td class="blank"></td>
-    <td>[[Guest Room->Quiet Floor]]</td>
+    <td>[[🛏️ Guest Room->Quiet Floor]]</td>
     <td class="blank"></td>
   </tr>
 </table>
@@ -154,7 +154,7 @@ You orient yourself by direction instead of door labels.
 
 A tall portrait watches from above the stairs.
 
-[[Inspect Portrait->Portrait]]
+[[🖼️ Inspect Portrait->Portrait]]
 
 :: Portrait
 The brass plate under the portrait reads:
@@ -186,7 +186,7 @@ The house gave you three signs: the frozen time, the watcher above, and the frei
 
 Code: <<textbox "$deskCodeInput" "" autofocus>>
 
-<<button "Try code">>
+<<button "Try code 🔢">>
   <<if $deskCodeInput is "873">>
     <<set $deskOpen = true>>
     <<addItem "Brass Service Key">>
@@ -218,7 +218,7 @@ Inside:
 "The Bell keeps the floor plans in people, not paper.
 If I disappear, follow the freight line down."
 
-[[Take everything and return to the foyer->Foyer]]
+[[🗝️ Take everything and return to the foyer->Foyer]]
 
 :: Conservatory
 The glass ceiling is cracked but dry. Dead vines coil around iron benches.
@@ -232,7 +232,7 @@ At the center, a frozen station clock still reads ''8:17''.
 
 You hear faint knocking from inside a sealed wall.
 
-[[Examine the sealed wall->Sealed Wall]]
+[[🧱 Examine the sealed wall->Sealed Wall]]
 [[Back to the foyer->Foyer]]
 
 :: Sealed Wall
@@ -258,13 +258,13 @@ A wooden freight crate sits nearby, stenciled with a faded number: ''3''.
 
 <<if $elevatorUnlocked>>
 The elevator gate is open.
-[[Descend to the freight level->Freight Level]]
+[[⬇️ Descend to the freight level->Freight Level]]
 [[Back to the foyer->Foyer]]
 <<else>>
 <<if $inventory.includes("Brass Service Key")>>
 You fit the brass key into the elevator lock.
 
-<<button "Unlock the service elevator">>
+<<button "Unlock the service elevator 🔓">>
   <<set $elevatorUnlocked = true>>
   <<goto "Elevator Unlock">>
 <</button>>
@@ -284,7 +284,7 @@ A fresh card has been tied to the control lever:
 
 The ink is still wet.
 
-[[Descend->Freight Level]]
+[[⬇️ Descend->Freight Level]]
 [[Back to the foyer->Foyer]]
 
 :: Freight Level
@@ -301,7 +301,7 @@ She smiles like she has been expecting you.
 
 ''End of Chapter 1 starter.''
 
-[[Restart->Start Over]]
+[[🔄 Restart->Start Over]]
 
 :: Start Over
 <<set $inventory = []>>
