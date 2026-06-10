@@ -82,7 +82,7 @@ Its passages will be merged into the same compiled game at `dist/index.html`.
 - A chapter-end reveal to launch your next act.
 
 ## Suggested Next Steps
-1. Add a day-loop or reset mechanic that changes room contents.
+1. Add one additional floor section to extend the current linear playthrough.
 2. Add one suspect per floor with conflicting alibis.
 3. Add a "Trust" or "Suspicion" variable that changes endings.
 4. Add at least one puzzle with multiple valid solutions.

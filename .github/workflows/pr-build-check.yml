@@ -22,6 +22,7 @@ jobs:
           TWEEGO_VERSION="2.1.1"
           curl -fL "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip" -o tweego.zip
           unzip -q tweego.zip -d tweego-bin
+          chmod +x tweego-bin/tweego
           echo "$PWD/tweego-bin" >> "$GITHUB_PATH"
 
       - name: Build story (compile check)
