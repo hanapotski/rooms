@@ -58,17 +58,58 @@ The Quiet Floor
 :: StoryStyles [stylesheet]
 .passage {
   max-width: 760px;
-  animation: passageFadeIn 280ms ease-out;
+  animation: passageFadeIn 1.2s ease-out;
+}
+
+.passage > * {
+  opacity: 0;
+  animation: lineReveal 700ms ease-out forwards;
+}
+
+.passage > *:nth-child(1) { animation-delay: 0.15s; }
+.passage > *:nth-child(2) { animation-delay: 0.28s; }
+.passage > *:nth-child(3) { animation-delay: 0.41s; }
+.passage > *:nth-child(4) { animation-delay: 0.54s; }
+.passage > *:nth-child(5) { animation-delay: 0.67s; }
+.passage > *:nth-child(6) { animation-delay: 0.8s; }
+.passage > *:nth-child(7) { animation-delay: 0.93s; }
+.passage > *:nth-child(8) { animation-delay: 1.06s; }
+.passage > *:nth-child(9) { animation-delay: 1.19s; }
+.passage > *:nth-child(10) { animation-delay: 1.32s; }
+.passage > *:nth-child(11) { animation-delay: 1.45s; }
+.passage > *:nth-child(12) { animation-delay: 1.58s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .passage,
+  .passage > *,
+  .badge {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 @keyframes passageFadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes lineReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }
 
