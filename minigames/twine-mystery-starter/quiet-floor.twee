@@ -56,11 +56,42 @@ The Quiet Floor
 <</if>>
 
 :: StoryStyles [stylesheet]
+.passage {
+  max-width: 760px;
+  animation: passageFadeIn 280ms ease-out;
+}
+
+@keyframes passageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(94, 106, 126, 0.18), transparent 36%),
+    radial-gradient(circle at 80% 90%, rgba(123, 95, 73, 0.16), transparent 36%),
+    #0f1115;
+}
+
+.menu-board,
 .room-map {
-  border: 1px solid #3a3a3a;
-  padding: 0.75rem;
+  border: 1px solid #3b4350;
+  border-radius: 10px;
+  padding: 0.85rem;
   margin-top: 0.75rem;
-  background: #121212;
+  background: linear-gradient(180deg, #161a22 0%, #11151d 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.menu-board ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.15rem;
 }
 
 .room-map table {
@@ -70,21 +101,133 @@ The Quiet Floor
 
 .room-map td {
   text-align: center;
-  padding: 0.45rem;
-  border: 1px dashed #2a2a2a;
+  padding: 0.6rem;
+  border: 1px dashed #2d3440;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.room-map .map-link {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 160ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.room-map .map-link:hover {
+  transform: translateY(-1px);
+}
+
+.room-map .map-conservatory {
+  background: rgba(105, 175, 132, 0.15);
+  border-color: rgba(105, 175, 132, 0.45);
+  box-shadow: 0 0 14px rgba(105, 175, 132, 0.2);
+}
+
+.room-map .map-study {
+  background: rgba(195, 169, 106, 0.15);
+  border-color: rgba(195, 169, 106, 0.45);
+  box-shadow: 0 0 14px rgba(195, 169, 106, 0.2);
+}
+
+.room-map .map-service {
+  background: rgba(136, 184, 191, 0.15);
+  border-color: rgba(136, 184, 191, 0.45);
+  box-shadow: 0 0 14px rgba(136, 184, 191, 0.2);
+}
+
+.room-map .map-guest {
+  background: rgba(169, 149, 199, 0.15);
+  border-color: rgba(169, 149, 199, 0.45);
+  box-shadow: 0 0 14px rgba(169, 149, 199, 0.2);
 }
 
 .room-map .blank {
   border-color: transparent;
+  background: transparent;
+}
+
+.room-map strong {
+  color: #cfd7e6;
+  letter-spacing: 0.03em;
+}
+
+.link-internal {
+  color: #a9d0ff;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(169, 208, 255, 0.45);
+}
+
+.link-internal:hover {
+  color: #d0e5ff;
+  border-bottom-color: rgba(208, 229, 255, 0.9);
+}
+
+.room-accent {
+  margin: 0.25rem 0 0.8rem;
+  padding: 0.45rem 0.65rem;
+  border-left: 4px solid #7188ab;
+  background: rgba(27, 34, 47, 0.6);
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.accent-foyer { border-left-color: #8ea2c7; }
+.accent-study { border-left-color: #c3a96a; }
+.accent-conservatory { border-left-color: #69af84; }
+.accent-service { border-left-color: #88b8bf; }
+.accent-guest { border-left-color: #a995c7; }
+.accent-freight { border-left-color: #c18484; }
+
+.badge-row {
+  margin: 0.6rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  border: 1px solid transparent;
+  animation: badgePop 220ms ease-out;
+}
+
+.badge-clue {
+  background: rgba(120, 180, 255, 0.14);
+  border-color: rgba(120, 180, 255, 0.45);
+}
+
+.badge-item {
+  background: rgba(255, 205, 120, 0.14);
+  border-color: rgba(255, 205, 120, 0.45);
+}
+
+@keyframes badgePop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 :: Start
 The house has a slate board in the front hall.
 
-Choose a door:
-- [[🚪 Door 1: The Quiet Floor->Quiet Floor]]
-- [[🚪 Door 2: Locked for now 🔒->Door 2 Locked]]
-- [[🚪 Door 3: Locked for now 🔒->Door 3 Locked]]
+<div class="menu-board">
+<strong>Choose a door:</strong>
+<ul>
+<li>[[🚪 Door 1: The Quiet Floor->Quiet Floor]]</li>
+<li>[[🚪 Door 2: Locked for now 🔒->Door 2 Locked]]</li>
+<li>[[🚪 Door 3: Locked for now 🔒->Door 3 Locked]]</li>
+</ul>
+</div>
 
 :: Door 2 Locked
 Door 2 does not move when you pull the handle.
@@ -101,6 +244,8 @@ Someone penciled beside it: "Come back later."
 [[Back to door list->Start]]
 
 :: Quiet Floor
+<div class="room-accent accent-guest">🛏️ Guest Room</div>
+
 The bell has not rung yet, but you can feel it in the walls.
 
 You wake in a small guest room with no windows, only a brass plaque:
@@ -125,28 +270,35 @@ Do not trust the mirrors.
 <<set $foundNote = true>>
 <<addClue "A note signed only 'E'.">>
 
+<div class="badge-row">
+  <span class="badge badge-clue">🧩 Clue Added: Note from E</span>
+</div>
+
 [[🚶 Go to the foyer->Foyer]]
 
 :: Foyer
+<div class="room-accent accent-foyer">🧭 Foyer</div>
+
 A circular foyer sits at the center of this floor.
 
 You orient yourself by direction instead of door labels.
 
 <div class="room-map">
+<strong>Floor Map</strong>
 <table>
   <tr>
     <td class="blank"></td>
-    <td>[[🌿 Conservatory->Conservatory]]</td>
+    <td><span class="map-link map-conservatory">[[🌿 Conservatory->Conservatory]]</span></td>
     <td class="blank"></td>
   </tr>
   <tr>
-    <td>[[📚 Study->Study]]</td>
+    <td><span class="map-link map-study">[[📚 Study->Study]]</span></td>
     <td><strong>Foyer</strong></td>
-    <td>[[🔧 Service Hall->Service Hall]]</td>
+    <td><span class="map-link map-service">[[🔧 Service Hall->Service Hall]]</span></td>
   </tr>
   <tr>
     <td class="blank"></td>
-    <td>[[🛏️ Guest Room->Quiet Floor]]</td>
+    <td><span class="map-link map-guest">[[🛏️ Guest Room->Quiet Floor]]</span></td>
     <td class="blank"></td>
   </tr>
 </table>
@@ -157,6 +309,8 @@ A tall portrait watches from above the stairs.
 [[🖼️ Inspect Portrait->Portrait]]
 
 :: Portrait
+<div class="room-accent accent-foyer">🖼️ Portrait Landing</div>
+
 The brass plate under the portrait reads:
 
 "''SEVEN'' guests entered Aster House in 1924.
@@ -165,11 +319,16 @@ Only one left with a name."
 <<if !$sawPortrait>>
 <<set $sawPortrait = true>>
 <<addClue "Portrait plate emphasizes SEVEN.">>
+<div class="badge-row">
+  <span class="badge badge-clue">🧩 Clue Added: Seven guests</span>
+</div>
 <</if>>
 
 [[Back to the foyer->Foyer]]
 
 :: Study
+<div class="room-accent accent-study">📚 Study</div>
+
 Dust hangs in sheets. A roll-top desk sits against the wall.
 
 <<if $deskOpen>>
@@ -218,9 +377,16 @@ Inside:
 "The Bell keeps the floor plans in people, not paper.
 If I disappear, follow the freight line down."
 
+<div class="badge-row">
+  <span class="badge badge-item">🎒 Item Added: Brass Service Key</span>
+  <span class="badge badge-clue">🧩 Clue Added: The Bell is a person</span>
+</div>
+
 [[🗝️ Take everything and return to the foyer->Foyer]]
 
 :: Conservatory
+<div class="room-accent accent-conservatory">🌿 Conservatory</div>
+
 The glass ceiling is cracked but dry. Dead vines coil around iron benches.
 
 At the center, a frozen station clock still reads ''8:17''.
@@ -228,6 +394,9 @@ At the center, a frozen station clock still reads ''8:17''.
 <<if !$sawClock>>
 <<set $sawClock = true>>
 <<addClue "Conservatory clock stopped at 8:17.">>
+<div class="badge-row">
+  <span class="badge badge-clue">🧩 Clue Added: Time stopped at 8:17</span>
+</div>
 <</if>>
 
 You hear faint knocking from inside a sealed wall.
@@ -247,6 +416,8 @@ Not random. A signal.
 [[Back to the conservatory->Conservatory]]
 
 :: Service Hall
+<div class="room-accent accent-service">🔧 Service Hall</div>
+
 Pipes run along the ceiling. At the end of the hall waits a caged service elevator.
 
 A wooden freight crate sits nearby, stenciled with a faded number: ''3''.
@@ -254,6 +425,9 @@ A wooden freight crate sits nearby, stenciled with a faded number: ''3''.
 <<if !$sawCrate>>
 <<set $sawCrate = true>>
 <<addClue "Freight crate marked 3.">>
+<div class="badge-row">
+  <span class="badge badge-clue">🧩 Clue Added: Crate mark 3</span>
+</div>
 <</if>>
 
 <<if $elevatorUnlocked>>
@@ -288,6 +462,8 @@ The ink is still wet.
 [[Back to the foyer->Foyer]]
 
 :: Freight Level
+<div class="room-accent accent-freight">⬇️ Freight Level</div>
+
 The elevator drops too far.
 
 When it stops, you step into a corridor of unfinished walls and numbered doors.
